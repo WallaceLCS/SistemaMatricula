@@ -4,7 +4,7 @@ from materias import grade_curricular
 id=0 
 class Aluno:
 
-    def __init__(self, matricula, nome, periodo, fluxo, coeficiente , n_materias):
+    def __init__(self, matricula, nome, periodo, fluxo, coeficiente, n_materias):
         self.matricula = matricula
         self.nome = nome  # Geralt of Rivia, James Howlett...
         # 1st period (1), 2nd period (2), 3rd period (3)...
@@ -15,6 +15,8 @@ class Aluno:
         self.materias_pagas = []
         self.n_materias_atuais = n_materias
 
+#TALVEZ SEJA MELHOR PEDIR PRIMEIRO O NUMERO DA MATRÍCULA PARA O ALUNO CASO ELE NÃO SEJA CALOURO
+#DESSA FORMA É POSSIVEL JÁ 'PUXAR' OS DADOS DELE
 
 def matricula():
     print("Processo de matrícula iniciado.")
@@ -75,6 +77,7 @@ def matricula():
         if p == '0':
             f = 'p'
             print("Seu fluxo é padrão (%s)." % f)
+            
             break
         elif p == '1':
             f = 'i'
