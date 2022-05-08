@@ -1,0 +1,32 @@
+seleciona matricula
+vc é calouro?
+sim:
+    matricula = id+=1
+    periodo = 1
+    fluxo = 'c'
+    materias_atuais = ['COMP359', 'COMP360', 'COM361','COM362','COMP363']
+    insira seu nome = 'nomealuno'
+não:
+    informe sua matricula: matriculaAtual
+        check = 0
+        for i in len(matriculados):
+            if matriculados[i].matricula == matriculaAtual :
+                aluno = matriculados[i]
+                check = 1
+        if check == 0:
+            print("matricula inexistente")
+            return
+        else:
+            quais das suas atuais vc já pagou: 
+                print(aluno.materias_atuais)
+                pagas = receber uma lista de matérias
+            for i in len(aluno.materias_atuais):
+                if pagas[i] == aluno.materias_atuais[i]:
+                    aluno.materias_atuais[i].pop()
+                    matérias_pagas.append(pagas[i])
+            if len(aluno.materias_atuais == 10):
+                print "vc não pode pagar mais matérias"
+                return
+            elif() ...
+
+        

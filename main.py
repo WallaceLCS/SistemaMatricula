@@ -1,19 +1,16 @@
 from materias import grade_curricular
 
-
 id=0 
 class Aluno:
 
-    def __init__(self, matricula, nome, periodo, fluxo, coeficiente, n_materias):
+    def __init__(self, matricula, nome, periodo, fluxo, coeficiente):
         self.matricula = matricula
         self.nome = nome  # Geralt of Rivia, James Howlett...
-        # 1st period (1), 2nd period (2), 3rd period (3)...
-        self.periodo = periodo
+        self.periodo = periodo # 1,2,3,4,5,6,7,8
         self.fluxo = fluxo  # continuum (c), individual (i)
         self.coeficiente = coeficiente
-        self.horarios = []
+        self.materias_atuais = []
         self.materias_pagas = []
-        self.n_materias_atuais = n_materias
 
 #TALVEZ SEJA MELHOR PEDIR PRIMEIRO O NUMERO DA MATRÍCULA PARA O ALUNO CASO ELE NÃO SEJA CALOURO
 #DESSA FORMA É POSSIVEL JÁ 'PUXAR' OS DADOS DELE
