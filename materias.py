@@ -1,3 +1,7 @@
+#A LISTAGEM AUTOMÁTICA DAS MATÉRIAS É APENAS NO CASO 'CALOURO'
+#EM QUALQUER OUTRO PERÍODO O ALUNO DEVE SELECIONAR SUAS MATÉRIAS
+#AS MATÉRIAS QUE APARECEREM PARA SELEÇÃO DEVEM SER FILTRADAS DE ACORDO COM OS PREREQUISITOS CUMPRIDOS PELO ALUNO
+
 class Disciplina:
     def __init__(self, nome: str, pre_requisitos: list, horario: list):
         self.nome = nome
@@ -20,39 +24,44 @@ grade_curricular = {
     "COMP366": Disciplina("Organização e Arquitetura de Computadores", [], ['SE17101850', 'QA17101850']),
     "COMP367": Disciplina("Geometria Analítica", [], ['SE15201700', 'QA15201700']),
     #3º periodo
-    "COMP368": Disciplina("Redes de Computadores", ["COMP359"], []),
-    "COMP369": Disciplina("Teoria dos Grafos", ["COMP364", "COMP362"], []),
-    "COMP370": Disciplina("Probabilidade e Estatística", ["COMP363"], []),
-    "COMP371": Disciplina("Álgebra Linear", ["COMP367"], []),
+    "COMP368": Disciplina("Redes de Computadores", ["COMP359"], ['TE07201110', 'QI07201110']),
+    "COMP369": Disciplina("Teoria dos Grafos", ["COMP364", "COMP362"], ['SE09201100', 'TE09201100']),
+    "COMP370": Disciplina("Probabilidade e Estatística", ["COMP363"], ['SE07300910', 'QA07300910']),
+    "COMP371": Disciplina("Álgebra Linear", ["COMP367"], ["SE11101250", "QA09201100"]),
     
     #4º periodo
-    "COMP372": Disciplina("Programação 2", ["COMP364", "COMP365", "COMP368"], []),
-    "COMP373": Disciplina("Programação 3", ["COMP364", "COMP365", "COMP368"], []),
-    "COMP374": Disciplina("Projeto e Análise de Algorítimos", ["COMP364", "COMP369"], []),
-    "COMP376": Disciplina("Teoria da Computação", [], []),
-    "COMP378": Disciplina("Sistemas Operacionais", ["COMP366"], []),
-    "COMP379": Disciplina("Compiladores", ["COMP364", "COMP376"], []),
-    "COMP380": Disciplina("Inteligencia Artificial", ["COMP360", "COMP364"], []),
-    "COMP381": Disciplina("Computação Gráfica", [], []),
-    "COMP382": Disciplina("Projeto e Desenvolvimento de Sistemas", ["COMP359", "COMP360", "COMP361", "COMP362", "COMP363", "COMP364", "COMP365", "COMP366", "COMP367", "COMP367", "COMP369", "COMP370", "COMP371", "COMP372", "COMP373", "COMP374", "COMP376", "COMP378", "COMP379", "COMP380", "COMP381"], []),
-    "COMP386": Disciplina("Metodologia de Pesquisa e Trabalho Individual", [], ['SX07300910']),
-    "COMP387": Disciplina("Noções de Direito", [], []),
-    "COMP389": Disciplina("Conceitos de Linguagem de Programação", [], []),
-    "COMP390": Disciplina("Aprendizagem de Máquina", ["COMP404"], []),
-    "COMP391": Disciplina("Sistemas Digitais", ["COMP404"], []),
-    "COMP392": Disciplina("Sistemas Distribuidos", [], []),
-    "COMP393": Disciplina("Redes Neurais e Aprendizado Profundo", [], []),
-    "COMP394": Disciplina("FPGA", [], []),
-    "COMP395": Disciplina("Iteração Homem-Máquina", ["COMP373"], []),
-    "COMP396": Disciplina("Processamento Digital de Imagens", ["COMP381"], []),
-    "COMP397": Disciplina("Computação Evolucionária", [], []),
-    "COMP398": Disciplina("Sistemas Embarcados", [], []),
-    "COMP399": Disciplina("Gerencia de Projeto", ["COMP382"], []),
-    "COMP400": Disciplina("Visão Computacional", [], []),
-    "COMP401": Disciplina("Ciencia de Dados", ["COMP370"], []),
-    "COMP402": Disciplina("Microcontroladores e Aplicações", [], []),
-    "COMP403": Disciplina("Segurança de Sistemas Computacionais", ["COMP368"], []),
-    "COMP404": Disciplina("Calculo 3", ["COMP363"], []),
+    "COMP372": Disciplina("Programação 2", ["COMP364", "COMP365", "COMP368"], ['QA13301510', 'QA15201700']),
+    "COMP373": Disciplina("Programação 3", ["COMP364", "COMP365", "COMP368"], ['TE15201700', 'QI15201700']),
+    "COMP374": Disciplina("Projeto e Análise de Algorítimos", ["COMP364", "COMP369"], ['SE13301510', 'QA17101850']),
+    "COMP376": Disciplina("Teoria da Computação", [], ['TE13301510', 'QI13301510']),
+    #5º periodo
+    "COMP378": Disciplina("Sistemas Operacionais", ["COMP366"], ['SE0730910', 'QA0730910']),
+    "COMP379": Disciplina("Compiladores", ["COMP364", "COMP376"], ['SE11101250', 'QA11101250']),
+    "COMP380": Disciplina("Inteligencia Artificial", ["COMP360", "COMP364"], ['SE09201100', 'QA09201100']),
+    "COMP381": Disciplina("Computação Gráfica", [], ['TE07200910', 'QI07200910']),
+    #6º periodo
+    "COMP382": Disciplina("Projeto e Desenvolvimento de Sistemas", ["COMP359", "COMP360", "COMP361", "COMP362", "COMP363", "COMP364", "COMP365", "COMP366", "COMP367", "COMP367", "COMP369", "COMP370", "COMP371", "COMP372", "COMP373", "COMP374", "COMP376", "COMP378", "COMP379", "COMP380", "COMP381"], ['SE07201110','TE07201110', 'QA07201110', 'QI07201110']),
+    #7º periodo
+    "COMP386": Disciplina("Metodologia de Pesquisa e Trabalho Individual", [], ['SX07300910', 'QA07300910']),
+    "COMP387": Disciplina("Noções de Direito", [], ['SX09201100', 'SX11101250']),
+    
+    #ENFASES
+    "COMP389": Disciplina("Conceitos de Linguagem de Programação", [], ['TE13301510', 'QI13301510']),
+    "COMP390": Disciplina("Aprendizagem de Máquina", ["COMP404"], ['TE17101850', 'QI17101850']),
+    "COMP391": Disciplina("Sistemas Digitais", ["COMP404"], ['TE15201700','SX15201700']),
+    "COMP392": Disciplina("Sistemas Distribuidos", [], ['TE15201700','QI15201700']),
+    "COMP393": Disciplina("Redes Neurais e Aprendizado Profundo", [], ["SE09201100",'SE11101250']),
+    "COMP394": Disciplina("FPGA", [], []),###
+    "COMP395": Disciplina("Iteração Homem-Máquina", ["COMP373"], ['TE07200910','QI07200910']),
+    "COMP396": Disciplina("Processamento Digital de Imagens", ["COMP381"], ['SE09201100','QA09201100']),
+    "COMP397": Disciplina("Computação Evolucionária", [], ['SE09201100','QA09201100']),
+    "COMP398": Disciplina("Sistemas Embarcados", [], []),###
+    "COMP399": Disciplina("Gerencia de Projeto", ["COMP382"], ['TE17101850','QI17101850']),
+    "COMP400": Disciplina("Visão Computacional", [], ['SE15201700','QA15201700']),
+    "COMP401": Disciplina("Ciencia de Dados", ["COMP370"], ['SE15201700','QA15201700']),
+    "COMP402": Disciplina("Microcontroladores e Aplicações", [], ['QA13301510','SX13301510']),
+    "COMP403": Disciplina("Segurança de Sistemas Computacionais", ["COMP368"], ['QA09201100','SX09201100']),
+    "COMP404": Disciplina("Calculo 3", ["COMP363"], ['TE13301510','QI13301510']),
     "COMP405": Disciplina("Tópicos em Ciência da Computação 1 ", [], []),
     "COMP406": Disciplina("Tópicos em Ciência da Computação 2", [], []),
     "COMP407": Disciplina("Tópicos em Ciência da Computação 3 ", [], []),
@@ -63,6 +72,7 @@ grade_curricular = {
     "COMP413": Disciplina("Tópicos em Física para Computação 2 ", [], []),
     "COMP414": Disciplina("Tópicos em Física para Computação 3", [], []),
 
+    #ELETIVAS
     "CC1941": Disciplina("Cálculo 4", [], []),
     "CC1942": Disciplina("Cálculo Numérico", [], []),
     "CC1943": Disciplina("Circuitos Digitais", [], []),

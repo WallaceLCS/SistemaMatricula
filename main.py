@@ -4,7 +4,7 @@ from materias import grade_curricular
 id=0 
 class Aluno:
 
-    def __init__(self, matricula, nome, periodo, fluxo, coeficiente):
+    def __init__(self, matricula, nome, periodo, fluxo, coeficiente , n_materias):
         self.matricula = matricula
         self.nome = nome  # Geralt of Rivia, James Howlett...
         # 1st period (1), 2nd period (2), 3rd period (3)...
@@ -13,6 +13,7 @@ class Aluno:
         self.coeficiente = coeficiente
         self.horarios = []
         self.materias_pagas = []
+        self.n_materias_atuais = n_materias
 
 
 def matricula():
