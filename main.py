@@ -1,151 +1,114 @@
-from materias import grade_curricular
+from materias import *
 
-id:int=0 
+
 class Aluno:
-
-    def __init__(self, matricula:int, nome:str, periodo:str, fluxo:str, coeficiente:float, status:str):
-        self.matricula = matricula
+    def __init__(self, id: int, nome: str, fluxo: int, coeficiente: float, materias_atuais: list, materias_pagas: list, pendencias: list):
+        self.id = id
         self.nome = nome  # Geralt of Rivia, James Howlett...
-        self.periodo = periodo # 1,2,3,4,5,6,7,8
-        self.fluxo = fluxo  # continuum (c), individual (i)
-        self.coeficiente = coeficiente
-        self.status = status #calouro, None, formando
-        self.materias_atuais = []
-        self.materias_pagas = []
+        self.fluxo = fluxo  # padrão (4), calouro(3), formando(2), individual (1)
+        self.coeficiente = coeficiente  # 8.5
+        self.materias_atuais = materias_atuais  # ["COMP359","COMP360","COMP361","COMP362","COMP363"]
+        self.materias_pagas = materias_pagas  # ["COMP359","COMP360","COMP361","COMP362","COMP363"]
+        self.pendencias = pendencias
 
-#TALVEZ SEJA MELHOR PEDIR PRIMEIRO O NUMERO DA MATRÍCULA PARA O ALUNO CASO ELE NÃO SEJA CALOURO
-#DESSA FORMA É POSSIVEL JÁ 'PUXAR' OS DADOS DELE
-Cadastrados:Aluno=[]
+
+id = 0
+cadastrados = [
+    Aluno(111, 'jose', 1, 6.0, [], ["COMP359", "COMP360","COMP361", "COMP362", "COMP363", "COMP365", "COMP366","COMP364", "COMP367"], [])
+]
+
 
 def matricula():
     print("Processo de matrícula iniciado.")
-    q = input("É calouro? (s = sim / n = não): ").lower()
-    #caso 1 : Calouro
-    if (q == "s"):
-        global id
-        id+=1
-        w = 0
-        while True:
-            if w == 4:
-                print("Limite de entradas inválidas atingido. Processo de matrícula encerrado.")
-                return
 
-            n = input("Insira o nome: ").strip()
-            n = n[0].upper() + n[1:]
-
-            if len(n) == 0 or n.isspace() or not all(i.isalpha() or i.isspace() for i in n):
+    w = 0
+    while w < 10:
+        if w == 4:
+            print(
+                "Limite de entradas inválidas atingido. Processo de matrícula encerrado.")
+            return
+        q = input("É calouro? (s = sim / n = não): ").lower()
+        if q == 's':
+            nome = input("Insira o nome: ").strip()
+            nome = nome[0].upper() + nome[1:]
+            if len(nome) == 0 or nome.isspace() or not all(i.isalpha() or i.isspace() for i in nome):
                 print("Entrada inválida!")
                 w += 1
             else:
-                print("Sua matricula é: %d" % id)
-                print("Seu nome é: %s" % n)
-                break
-        aluno = Aluno(id, n, '1', 'c', 10.0,'Calouro')
-        aluno.materias_atuais = ["COMP359","COMP360","COMP361","COMP362","COMP363"]
-        Cadastrados.append(aluno)
-    #caso 2: Normal
-    elif(q == 'n'):
-        mat = int(input("informe a sua matricula: "))
-        check= 0
-        for i in range(len(Cadastrados)):
-            if Cadastrados[i].matricula == mat:
-                aluno = Cadastrados[i]
-                check = 1
-                break
-        if check == 0:
-            print("matricula inexistente")
-            return
+                global id
+                id += 1
+                calouro = Aluno(id, nome, 3, 10.0, ["COMP359", "COMP360", "COMP361", "COMP362", "COMP363"], [[]], [])
+                matriculados.append(calouro)
+                print("matricula efetuada!!")
+                return
+        elif q == 'n':
+            num = int(input("Insira o número da sua matrícula: "))
+            for i in range(len(cadastrados)):
+                if cadastrados[i].id == num:
+                    aluno = cadastrados[i]
+                    while True:
+                        if(len(aluno.materias_atuais) == 10):
+                            matriculados.append(aluno)
+                            cadastrados.remove(aluno)
+                            print("limite de materias atingido")
+                            print("matricula efetuada!!")
+                            return
+                        
+
+                        if(len(aluno.materias_atuais) <3):
+                            sel = input("selecione uma materia para se matrícular: ").upper()
+                        else:
+                            while True:
+                                sel = input("selecione uma materia para se matrícular (para encerrar digite 'e')):").upper() #DEPOIS TRATAR O CASO DO CARA ESCREVER ERRADO!!!!
+                                if sel == 'E':
+                                    matriculados.append(aluno)
+                                    cadastrados.remove(aluno)
+                                    print("matricula efetuada!!")
+                                    return
+                                else:
+                                    break
+                        if sel in aluno.materias_pagas:  # JÁ PAGOU!?
+                            print("você já pagou essa matéria")
+                        elif sel in grade_curricular:
+                            print(grade_curricular[sel].nome)
+                            if(grade_curricular[sel].pre_requisitos != []):
+                                for i in range(len(grade_curricular[sel].pre_requisitos)):
+                                    if not grade_curricular[sel].pre_requisitos[i] in aluno.materias_pagas:
+                                        print("não cumpriu os pré-requisitos para ingressar na matéria!!")
+                                        return
+                            if sel in aluno.pendencias:
+                                aluno.pendencias.remove(sel)
+                            aluno.materias_atuais.append(sel)
+                            print(len(aluno.materias_atuais))
+                        else:
+                            print("essa matéria não existe!!")
+
+                else:
+                    for j in range(len(matriculados)):
+                        if matriculados[j].id == num:
+                            print("\n\nvocê já está matriculado!")
+                            if matriculados[j].fluxo == 3:
+                                print("e você é calouro sim!!\n\n")
+                            return
+                    print("\n\no aluno não consta no sistema!\n\n")
+                    return
         else:
-            if (len(aluno.materias_atuais) == 10):
-                print("não é permitido se matricular em +10 matérias ao mesmo tempo!!")
-                return
-            print("liste quais matérias das atuais já foram pagas:\n")
-            print(aluno.materias_atuais)
-            pagas = list(map(str, input("").split()))
-            for i in range(len(pagas)):
-                if pagas[i] in aluno.materias_atuais:
-                    aluno.materias_atuais.remove(pagas[i])
-                    print(aluno.materias_atuais)
-                    aluno.materias_pagas.append(pagas[i])
-                print(aluno.materias_pagas)
-            x = 0
-            while True:
-                if x == 4:
-                    print("Limite de entradas inválidas atingido. Processo de matrícula encerrado.")
-                    return
-                ps = ['1', '2', '3', '4', '5', '6', '7', '8']
-                p = input("Insira o péríodo: ")
-                if p in ps:
-                    print("Seu período é o: %sº" % p)
-                    aluno.período = p
-                    break
-                else:
-                    print("Entrada inválida!")
-                    x += 1
-                if p == '8':
-                    aluno.status = 'formando'
-                else:
-                    aluno.status = None    
-                    
-            f = str(input("informe seu fluxo: c - continuo / i - individual\n"))
-            #fluxo esta inválido por algum motivo
-            if(f!="c" or f!="i"):
-                print("fluxo inválido!!")
-                return
-            else:
-                aluno.fluxo = f
-            z = 0
-            while z <= 4:
-                if z == 4:
-                    print("Limite de entradas inválidas atingido. Processo de matrícula encerrado.")
-                    return
-                try:
-                    c = float(input("Insira o coeficiente de rendimento (ex.: 8.5): ").replace(
-                        ',', '.').replace(';', '.'))
-                    if c < 0 or c > 10:
-                        print("Entrada inválida!")
-                        z += 1
-                    else:
-                        print("Seu coeficiente de rendimento é: %.2f" % c)
-                        aluno.coeficiente = c
-                        return
-                except ValueError:
-                    z += 1
-                    print("Entrada inválida!")
-            print("Selecione as matérias que deseja pagar:")
-            #!!!!!!
-            #metodo de apresentação das matérias
-            #possivel função de filtragem dos dados de acordo com o fluxo??
-            #!!!!!!!
-            while True:
-                materia_selecionada = input("informe o codigo da matéria")
-                if materia_selecionada in grade_curricular:
-                    aluno.materias_atuais.append(materia_selecionada)
-                if(len(aluno.materias_atuais)+1 > 10):
-                    print("numero maximo de matérias atingido!\nconcluindo matricula")
-                    break
-                pronto = input('deseja concluir o processo? (s - sim , n - não)')
-                if(pronto == 's'):
-                    if (len(aluno.materias_atuais) < 3):
-                        print('você não selecionou o minimo de matérias por matrícula\n escolha mais matérias\n')
-                    else:
-                        break
-                elif(pronto != 'n'):
-                    print("entrada inválida!")
-                    return
-    print("Matricula concluida!")
-    return
+            print("Entrada inválida!")
+            w += 1
+
+
+matriculados = []
 counter = 0
 while True:
     if counter == 4:
         print("Limite de entradas inválidas atingido. Programa encerrado.")
         exit()
-    x = input("\nBem-vindo ao sistema de matrícula, ajuste e reajuste.\n1 - Matrícula;\n2 - Ajuste;\n3 - Reajuste;\n4 - Encerrar programa.\nSelecione uma opção: ")
+    x = input("\nBem-vindo ao sistema de matrícula, ajuste e reajuste.\n(1) - Matrícula;\n(2) - Ajuste;\n(3) - Reajuste;\n(4) - Encerrar programa.\nSelecione uma opção: ")
     if x == '1':
         matricula()
-        print('\nLista cadastrados:')
-        for i in range(len(Cadastrados)):
-            print('#'+Cadastrados[i].nome)
+        for i in range(len(matriculados)):
+            print("\n# ", str(matriculados[i].id)+' - '+matriculados[i].nome+' atuais:'+str(matriculados[i].materias_atuais)+' coef:'+str(
+                matriculados[i].coeficiente)+' fluxo:'+str(matriculados[i].fluxo)+' pagas'+str(matriculados[i].materias_pagas)+' pendencias'+str(matriculados[i].pendencias))
     elif x == '4':
         print("Programa encerrado.")
         exit()

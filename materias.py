@@ -102,3 +102,7 @@ grade_curricular = {
     "CC1967": Disciplina("Tópicos em Sistemas Inteligentes", [], []),
     "CC1968": Disciplina("Tópicos em Software Básico ", [], []),
 }
+
+grade_externa={
+    
+}

@@ -30,3 +30,7 @@ não:
             elif() ...
 
         
+
+
+SE aluno.materias_pagas == todas as materias de todos os periodos
+    então aluno.fluxo = 2 (formando)
