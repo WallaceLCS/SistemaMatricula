@@ -14,9 +14,11 @@ class Aluno:
 
 id = 0
 cadastrados = [
-    Aluno(111, 'jose', 1, 6.0, [], ["COMP359", "COMP360","COMP361", "COMP362", "COMP363", "COMP365", "COMP366","COMP364", "COMP367"], [])
+    Aluno(111, 'jose', 1, 6.0, [], ["COMP359", "COMP360","COMP361", "COMP362", "COMP363", "COMP365", "COMP366","COMP364", "COMP367"], []),
+    Aluno(222, 'maria', 3, 6.0, [], ["COMP359", "COMP360","COMP361", "COMP362", "COMP363", "COMP365", "COMP366","COMP364", "COMP367"], [])
 ]
 
+#possivel função de cadastro de alunos??
 
 def matricula():
     print("Processo de matrícula iniciado.")
@@ -38,6 +40,13 @@ def matricula():
                 global id
                 id += 1
                 calouro = Aluno(id, nome, 3, 10.0, ["COMP359", "COMP360", "COMP361", "COMP362", "COMP363"], [[]], [])
+                for i in range(len(calouro.materias_atuais)):
+                    if calouro.materias_atuais[i] in grade_curricular:
+                        if (grade_curricular[calouro.materias_atuais[i]].ocupado == grade_curricular[calouro.materias_atuais[i]].limite):
+                             print("materia cheia!!")
+                             return
+                        else:
+                            grade_curricular[calouro.materias_atuais[i]].ocupado+=1
                 matriculados.append(calouro)
                 print("matricula efetuada!!")
                 return
@@ -46,6 +55,10 @@ def matricula():
             for i in range(len(cadastrados)):
                 if cadastrados[i].id == num:
                     aluno = cadastrados[i]
+                    for j in cadastrados:
+                        if (aluno.fluxo < j.fluxo):
+                            print("Desculpe, aguarde alunos de prioridade maior fazerem sua matrícula!!")
+                            return
                     while True:
                         if(len(aluno.materias_atuais) == 10):
                             matriculados.append(aluno)
@@ -53,7 +66,6 @@ def matricula():
                             print("limite de materias atingido")
                             print("matricula efetuada!!")
                             return
-                        
 
                         if(len(aluno.materias_atuais) <3):
                             sel = input("selecione uma materia para se matrícular: ").upper()
@@ -71,6 +83,9 @@ def matricula():
                             print("você já pagou essa matéria")
                         elif sel in grade_curricular:
                             print(grade_curricular[sel].nome)
+                            if(grade_curricular[sel].ocupado == grade_curricular[sel].limite):
+                                print("materia cheia!!!")
+                                return
                             if(grade_curricular[sel].pre_requisitos != []):
                                 for i in range(len(grade_curricular[sel].pre_requisitos)):
                                     if not grade_curricular[sel].pre_requisitos[i] in aluno.materias_pagas:
@@ -79,19 +94,18 @@ def matricula():
                             if sel in aluno.pendencias:
                                 aluno.pendencias.remove(sel)
                             aluno.materias_atuais.append(sel)
+                            grade_curricular[sel].ocupado+=1
                             print(len(aluno.materias_atuais))
                         else:
                             print("essa matéria não existe!!")
-
-                else:
-                    for j in range(len(matriculados)):
-                        if matriculados[j].id == num:
-                            print("\n\nvocê já está matriculado!")
-                            if matriculados[j].fluxo == 3:
-                                print("e você é calouro sim!!\n\n")
-                            return
-                    print("\n\no aluno não consta no sistema!\n\n")
-                    return
+            for j in range(len(matriculados)):
+                if matriculados[j].id == num:
+                    print("\n\nvocê já está matriculado!")
+                    if matriculados[j].fluxo == 3:
+                        print("e você é calouro sim!!\n\n")
+                        return
+            print("\n\no aluno não consta no sistema!\n\n")
+            return
         else:
             print("Entrada inválida!")
             w += 1
