@@ -1,7 +1,3 @@
-#A LISTAGEM AUTOMÁTICA DAS MATÉRIAS É APENAS NO CASO 'CALOURO'
-#EM QUALQUER OUTRO PERÍODO O ALUNO DEVE SELECIONAR SUAS MATÉRIAS
-#AS MATÉRIAS QUE APARECEREM PARA SELEÇÃO DEVEM SER FILTRADAS DE ACORDO COM OS PREREQUISITOS CUMPRIDOS PELO ALUNO
-
 class Disciplina:
     def __init__(self, nome: str, pre_requisitos: list, horario: list, tipo: int):
         self.nome = nome
@@ -12,7 +8,7 @@ class Disciplina:
         self.tipo = tipo
 
 
-grade_curricular = {
+grade_CC = {
     #1º periodo
     "COMP359": Disciplina("Programação 1", [], ['SX07300910', 'SX09201100'], 0),
     "COMP360": Disciplina("Lógica para Computação", [], ['SG11101250', 'QA11101250'], 0),
@@ -102,17 +98,97 @@ grade_curricular = {
     "CC1966": Disciplina("Tópicos em Sistemas Distribuídos ", [], [], 1),
     "CC1967": Disciplina("Tópicos em Sistemas Inteligentes", [], [], 1),
     "CC1968": Disciplina("Tópicos em Software Básico ", [], [], 1),
-}
-
-grade_externa= {
     
-}
-
-tcc = {
+    #TCC
     "TCC1": Disciplina("TCC", [], [], 5),
     "TCC2": Disciplina("TCC", [], [], 5),
     "TCC3": Disciplina("TCC", [], [], 5),
 }
 
+grade_externa = {
+    #Grade de EC
+    "ECOM001": Disciplina("Ingles Instrumental",[],['QI13301510', 'QI15201700'],0),
+    "ECOM002": Disciplina("Programação 1",[],['SX13301420', 'SX15201700'],0),
+    "ECOM003": Disciplina("Matemática Discreta",[],['SE13301510', 'QA13301510'],0),
+    "ECOM004": Disciplina("Cálculo 1",[],['TE13301420','QA17101850'],0),
+    "ECOM005": Disciplina("Geometria Analítica",[],['SE15201700', 'QA15201700'],0),
+    "ECOM006": Disciplina("Introdução à Eng. da Computação",[],['SE17101850', 'TE17101850'],0),
+    "ECOM007": Disciplina("Lógica Aplicada à Computação",[],['TE09201100','QA09201100'],0),
+    "ECOM008": Disciplina("Estrutura de Dados",[],['SE11101250','QA11101250'],0),
+    "ECOM009": Disciplina("Física 1",[],['SE07300910','QA07300910'], 0),
+    "ECOM010": Disciplina("Cálculo 2",[],['TE13301510','QI13301510'], 0),
+    "ECOM011": Disciplina("Álgebra Linear",[],['SE09201100','QA09201100'], 0),
+    "ECOM012": Disciplina("Circuitos Digitais",[],['SX15201700'], 0),
+    "ECOM013": Disciplina("Desenho",[],['SX09201100','SX11101250'], 0),
+    "ECOM014": Disciplina("Linguagens Formais, Autômatos  e Computibilidade",[],['SE15201700','QI15201700'],0),
+    "ECOM015": Disciplina("Projeto de Software",[],['QA15201700','QA17101850'], 0),
+    "ECOM016": Disciplina("Física 2",[],['SE13301510','QA13301510'],0),
+    "ECOM017": Disciplina("Cálculo 3",[],['TE13301510','QU13301510'],0),
+    "ECOM018": Disciplina("Metodologia da Pesquisa e do Trabalho Científico",[],['SX11101250'],0),
+    "ECOM019": Disciplina("Sistemas Digitais",[],['TE15201700','QI15201700'],0),
+    "ECOM057": Disciplina("Química Tecnológica",[],['TE17101850','QI17101850'],0),
+    "ECOM020": Disciplina("Probabilidade e Estatística",[],['SE19002040','QA19002040'],0),
+    "ECOM021": Disciplina("Engenharia de Software",[],['TE15201700','QI15201700'],0),
+    "ECOM022": Disciplina("Física 3",[],['TE09201100','QI09201100'],0),
+    "ECOM023": Disciplina("Cálculo 4",[],['SE09201100','QA09201100'],0),
+    "ECOM024": Disciplina("Variáveis Complexas",[],['TE11101250','QI11101250'],0),
+    "ECOM025": Disciplina("Organização e Arquitetura de Computadores",[],['QA11101250','SX11101250'],0),
+    "ECOM026": Disciplina("Física Experimental",[],['QI07300910'],0),
+    "ECOM027": Disciplina("Projeto e Análise de Algorítmos",['SE17101850','TE17101850'],[],0),
+    "ECOM028": Disciplina("Circuitos Elétricos",[],['SX13301420','SX15201700'],0),
+    "ECOM029": Disciplina("Redes de Computadores",[],['TE09201100','QI09201100'],0),
+    "ECOM030": Disciplina("Sinais e Sistemas",[],['TE15201700','QI15201700','SX17101850'],0),
+    "ECOM031": Disciplina("Inteligência Artificial",[],['SE15201700','QA15201700'],0),
+    "ECOM032": Disciplina("Sistemas Operacionais",[],['SE13301510','QA13301510'],0),
+    "ECOM033": Disciplina("Teoria dos Grafos",[],['QA17101850'],0),
+    "ECOM034": Disciplina("Princípios de Comunicação",[],['QI09201100','SX1101250'],0),
+    "ECOM035": Disciplina("Eletrônica",[],['QI1101250','SX09201100'],0),
+    "ECOM036": Disciplina("Métodos Numéricos",[],['SE11101250','QA1101250'],0),
+    "ECOM037": Disciplina("Sistemas de Controle 1",[],['SE09201100','QA09201100'],0),
+    "ECOM048": Disciplina("Computador Sociedade e Ética",[],['TE13301510'],0),
+    "ECOM040": Disciplina("Empreendedorismo",[],['SE15201700','TE15201700'],0),
+    "ECOM0118": Disciplina("Fenômenos de Transporte",[],['TE07300910','QI07300910'],0),
+    "ECOM041": Disciplina("Bancos de Dados",[],['TE15201700','QI15201700'],0),
+    "ECOM046": Disciplina("Noções de Direito",[],['SX15201700','SX17101850'],0),
+    "ECOM058": Disciplina("Sistemas de Controle 2",[],['TE13301510','QI13301510'],0),
+    "ECOM059": Disciplina("Microcontroladores e Aplicações",[],['QA13301510','SX13301510'],0),
+    "ECOM060": Disciplina("Instrumentação Eletrônica",[],['TE17101850','QI17101850'],0),
+    "ECOM063": Disciplina("Processamento Digital de Sinais",[],['SE15201700','QA15201700'],0),
+    "ECOM039": Disciplina("Computação Gráfica e Processamento de Imagens",[],[''],0),
+    "ECOM042": Disciplina("Sistemas Embarcados",[],['QA1101250','SX1101250'],0),
+    "ECOM044": Disciplina("Sistemas Distribuídos",[],['TE15201700','QU15201700'],0),
+    "ECOM061": Disciplina("Automação Industrial",[],['QI07300910','SX07300910'],0),
+    "ECOM062": Disciplina("Robótica",[],['SE07300910','QA07300910'],0),
+    "ECOM0119": Disciplina("Mecânica dos Sólidos",[],['SE13301510','SX13301510'],0),
+
+    #ELETIVAS EC
+    "ECOM038": Disciplina("Conceitos de Linguagem de Programação",[],['TE13301510','QI13301510'],0),
+    "ECOM043": Disciplina("Sistemas de Evento Discretos",[],[],0),
+    "ECOM045": Disciplina("Compiladores",[],['SE17101850','QA17101850'],0),
+    "ECOM047": Disciplina("Paradigmas de Linguagem de Programação",[],[],0),
+    "ECOM049": Disciplina("Gerência de Projetos",[],['TE17101850','QI17101850'],0),
+    "ECOM050": Disciplina("Laboratório de Programação",[],[''],0),
+    "ECOM052": Disciplina("Fundamentos de Libras",[],[],0),
+    "ECOM053": Disciplina("Desenvolvimento Baseado em Ontologias",[],[],0),
+    "ECOM054": Disciplina("Processamento Digital de Sinais",[],[],0),
+    "ECOM055": Disciplina("Tópicos Especiais em Circuitos Elétricos",[],[],0),
+    "ECOM056": Disciplina("Laboratório de Estrutura de Dados",[],[],0),
+    "ECOM065": Disciplina("Tópicos em Sistemas Distribuídos: Paradigmas Modernos",[],[],0),
+    "ECOM066": Disciplina("Laboratório de Eletrônica",[],[],0),
+    "ECOMO67": Disciplina("Laboratório de Circuitos Eletrônicos",[],[],0),
+    "ECOM068": Disciplina("Laboratório de Eletrônica",[],[],0),
+    "ECOM069": Disciplina("Tópicos em Sistemas Distribuídos: Algoritmos Distribuídos I",[],[],0),
+    "ECOM070": Disciplina("Tópicos em Sistemas Distribuídos: Algoritmos Distribuídos II",[],[],0),
+    "ECOM071": Disciplina("Redes de Petri",[],['SE13301510','QA13301510'],0),
+    "ECOM072": Disciplina("Introdução a Teoria da Informação",[],[],0),
+    "ECOM073": Disciplina("Inteligência Artificial 2",[],['SE17101850','QA17101850'],0),
+    "ECOM074": Disciplina("Desenvolvimento com QT/C++",[],[],0),
+    
+    #GRADE DO IM
+    
+}
+
 #Para a checagem de entradas.
-mat_lista = ["COMP359", "COMP360", "COMP361", "COMP362", "COMP363", "COMP364", "COMP365", "COMP366", "COMP367", "COMP368", "COMP369", "COMP370", "COMP371", "COMP372", "COMP373", "COMP374", "COMP376", "COMP378", "COMP379", "COMP380", "COMP381", "COMP382", "COMP386", "COMP387", "COMP389", "COMP390", "COMP391", "COMP392", "COMP393", "COMP394", "COMP395", "COMP396", "COMP397", "COMP398", "COMP399", "COMP400", "COMP401", "COMP402", "COMP403", "COMP404", "COMP405", "COMP406", "COMP407","COMP409", "COMP410", "COMP411", "COMP412", "COMP413", "COMP414", "CC1941", "CC1942", "CC1943", "CC1944", "CC1945", "CC1946", "CC1947", "CC1948", "CC1949", "CC1950", "CC1951", "CC1952", "CC1953", "CC1954", "CC1955", "CC1956", "CC1957", "CC1958", "CC1959", "CC1960", "CC1961", "CC1962", "CC1963", "CC1964", "CC1965", "CC1966", "CC1967", "CC1968"]
+mat_lista = ["COMP359", "COMP360", "COMP361", "COMP362", "COMP363", "COMP364", "COMP365", "COMP366", "COMP367", "COMP368", "COMP369", "COMP370", "COMP371", "COMP372", "COMP373", "COMP374", "COMP376", "COMP378", "COMP379", "COMP380", "COMP381", "COMP382", "COMP386", "COMP387", "COMP389", "COMP390", "COMP391", "COMP392", "COMP393", "COMP394", "COMP395", "COMP396", "COMP397", "COMP398", "COMP399", "COMP400", "COMP401", "COMP402", "COMP403", "COMP404", "COMP405", "COMP406", "COMP407","COMP409", "COMP410", "COMP411", "COMP412", "COMP413", "COMP414", "CC1941", "CC1942", "CC1943", "CC1944", "CC1945", "CC1946", "CC1947", "CC1948", "CC1949", "CC1950", "CC1951", "CC1952", "CC1953", "CC1954", "CC1955", "CC1956", "CC1957", "CC1958", "CC1959", "CC1960", "CC1961", "CC1962", "CC1963", "CC1964", "CC1965", "CC1966", "CC1967", "CC1968","TCC1","TCC2","TCC3"]
+
+mat_lista_externa = ['ECOM001', 'ECOM002', 'ECOM003', 'ECOM004', 'ECOM005', 'ECOM006', 'ECOM007', 'ECOM008', 'ECOM009', 'ECOM010', 'ECOM011', 'ECOM012', 'ECOM013', 'ECOM014', 'ECOM015', 'ECOM016', 'ECOM017', 'ECOM018', 'ECOM019', 'ECOM057', 'ECOM020', 'ECOM021', 'ECOM022', 'ECOM023', 'ECOM024', 'ECOM025', 'ECOM026', 'ECOM027', 'ECOM028', 'ECOM029', 'ECOM030', 'ECOM031', 'ECOM032', 'ECOM033', 'ECOM034', 'ECOM035', 'ECOM036', 'ECOM037', 'ECOM048', 'ECOM040', 'ECOM0118', 'ECOM041', 'ECOM046', 'ECOM058', 'ECOM059', 'ECOM060', 'ECOM063', 'ECOM039', 'ECOM042', 'ECOM044', 'ECOM061', 'ECOM062', 'ECOM0119', 'ECOM038', 'ECOM043', 'ECOM045', 'ECOM047', 'ECOM049', 'ECOM050', 'ECOM052', 'ECOM053', 'ECOM054', 'ECOM055', 'ECOM056', 'ECOM065', 'ECOM066', 'ECOMO67', 'ECOM068', 'ECOM069', 'ECOM070', 'ECOM071', 'ECOM072', 'ECOM073', 'ECOM074']

@@ -14,7 +14,7 @@ class Aluno:
 id = 0
 cadastrados = [
     Aluno(111, 'José Henrique da Silva', 1, 6.0, [], ["COMP359", "COMP360","COMP361", "COMP362", "COMP363", "COMP365", "COMP366","COMP364", "COMP367"], []),
-    #Aluno(222, 'Maria Carla de Andrade', 3, 7.5, [], ["COMP359", "COMP360","COMP361", "COMP362", "COMP363", "COMP365", "COMP366","COMP364", "COMP367"], []),
+    Aluno(222, 'Maria Carla de Andrade', 3, 7.5, [], ["COMP359", "COMP360","COMP361", "COMP362", "COMP363", "COMP365", "COMP366","COMP364", "COMP367"], []),
     Aluno(666, 'Lucifer Morningstar', 2, 9.0, [], mat_lista, [])
 ]
 
