@@ -19,8 +19,8 @@ class Pedido:
 
 ajuste_lista = []
 matriculados = [
-    Aluno(444, 'João Pedro', 1, 8.0, ["COMP372", "CC1965", "CC1962"],["COMP359", "COMP360", "COMP361", "COMP362", "COMP363","COMP364", "COMP365", "COMP366"], ["COMP367"],1),
-    Aluno(333, 'Ana Clara', 4, 6.0, ["COMP368","COMP369","COMP370","COMP371"],["COMP359", "COMP360", "COMP361", "COMP362", "COMP363","COMP364", "COMP365", "COMP366", "COMP367"], [],1)
+    Aluno(444, 'João Pedro Vasconcelos', 1, 8.0, ["COMP372", "CC1965", "CC1962"],["COMP359", "COMP360", "COMP361", "COMP362", "COMP363","COMP364", "COMP365", "COMP366"], ["COMP367"],1),
+    Aluno(333, 'Ana Clara Lima', 4, 6.0, ["COMP368","COMP369","COMP370","COMP371"],["COMP359", "COMP360", "COMP361", "COMP362", "COMP363","COMP364", "COMP365", "COMP366", "COMP367"], [],1)
 ]
 id = 0
 cadastrados = [
@@ -47,7 +47,7 @@ def ajuste_reajuste(tipo:int):
     else:
         print("Processo de ajuste iniciado.")
     check=0
-    identificacao_ajuste = int(input("Insira seu ID: "))
+    identificacao_ajuste = int(input("Insira o número da sua matrícula: "))
     for i in matriculados:
         if i.id == identificacao_ajuste:
             if i.etapa<2 and tipo == 1:
@@ -58,14 +58,14 @@ def ajuste_reajuste(tipo:int):
                 return
             aluno=i
             check =1
-            print(f"\nBem-vindo(a) {aluno.nome}.")
+            print(f"\nBem-vindo(a), {aluno.nome}.")
             break
     if check == 0:
-        print("ID INVÁLIDO")
+        print("Número de matrícula inválido.")
         return 
     
     while True:
-        print("Qual operação vc quer realizar no ajuste?")
+        print("Qual operação você quer realizar no ajuste?")
         y = input("\n(1): Inserção de matéria."
                       "\n(2): Remoção de matéria."
                       "\n(3): Troca de matéria.\n"
@@ -82,7 +82,7 @@ def ajuste_reajuste(tipo:int):
             return
             #voltar para tela inicial
         else:
-            print("Opção inválida")
+            print("Opção inválida.")
 
 
 def insercao(aluno:Aluno,tipo:int):
@@ -93,13 +93,13 @@ def insercao(aluno:Aluno,tipo:int):
         print("Você já esta limite máximo de disciplinas cadastradas")
         return
     
-    print("\nDisciplinas de Ciência:\n")
+    print("\nDisciplinas de Ciência da Computação:\n")
     for materia in grade_CC:
         if (materia in aluno.materias_pagas) or (materia in aluno.materias_atuais):
                         continue
         print("\033[1m"+materia+"\033[0m"+":",grade_CC[materia].nome, end=" || ")
     if tipo == 1:
-        print("\nDisciplinas de Engenharia da Computação e Matemática:\n")
+        print("\nDisciplinas externas:\n")
         for materia in grade_externa:
             if materia in aluno.materias_atuais:
                 continue
@@ -107,20 +107,24 @@ def insercao(aluno:Aluno,tipo:int):
     print("")
     
     while True:
-        escolha = input("Digite o código da matéria: (digite 'e' para sair) ").upper()
+        escolha = input("Digite o código da matéria (ou 'e' para sair): ").upper()
         print("")
         if escolha == 'E':
             return
         if tipo ==1:
-            if not escolha in mat_lista or not escolha in mat_lista_externa:
-                print("essa matéria não existe!")
+            if not escolha in mat_lista and not escolha in mat_lista_externa:
+                print("Essa matéria não existe.")
+                continue
         elif not escolha in mat_lista:
-            print("essa matéria não existe!")
+            print("Essa matéria não existe.")
+            continue
         elif escolha in aluno.materias_atuais:
             if escolha in grade_externa:
-                print(f"Você já esta cadastrado em {grade_externa[escolha].nome}")
+                print(f"Você já esta cadastrado em {grade_externa[escolha].nome}.")
+                continue
             else:
-                print(f"Você já esta cadastrado em {grade_CC[escolha].nome}")
+                print(f"Você já esta cadastrado em {grade_CC[escolha].nome}.")
+                continue
         else:
             #Ve se tem pré-requesito
             if tipo == 1:
@@ -163,11 +167,11 @@ def insercao(aluno:Aluno,tipo:int):
                                     confirm_requirement = True
                                     break 
                 if confirm_requirement == False:
-                    print(f"Você NÃO tem o pre-requesito para pagar essa matéria, você precisa pagar:")
+                    print(f"Você não tem o(s) pré-requisito(s) para pagar essa matéria. É necessário pagar: ")
                     print(*lista_prereq, sep=' ')
                     continue
             if escolha in aluno.materias_pagas:
-                print("Você já pagou essa matéria!\n")
+                print("Você já pagou essa matéria.\n")
             else:
                 #Ver se tem horario
                 check=0
@@ -236,9 +240,6 @@ def remocao(aluno:Aluno,tipo:int):
             ajuste_lista.append(Pedido(aluno,None,escolha))
             print("Sua remoção foi registrada.")
 
-
-
-
 def troca(aluno:Aluno,tipo:int):
     print("Materias atuais:")
     for materia in aluno.materias_atuais:
@@ -279,7 +280,7 @@ def troca(aluno:Aluno,tipo:int):
         if escolha_insercao == 'E':
             return
         if tipo ==1:
-            if not escolha_insercao in mat_lista or not escolha_insercao in mat_lista_externa:
+            if not escolha_insercao in mat_lista and not escolha_insercao in mat_lista_externa:
                 print("essa matéria não existe!")
         elif not escolha_insercao in mat_lista:
             print("essa matéria não existe!")
@@ -640,9 +641,6 @@ while True:
                 matriculados[i].materias_atuais) + ' coef:' + str(
                 matriculados[i].coeficiente) + ' fluxo:' + str(matriculados[i].fluxo) + ' m_pagas' + str(
                 matriculados[i].materias_pagas) + ' pendencias' + str(matriculados[i].pendencias))
-    elif x == '6':
-        print("Programa encerrado.")
-        exit()
     elif x == '2':
         ajuste_reajuste(0)
     elif x == '3':
@@ -651,6 +649,9 @@ while True:
         ajuste_reajuste(1)
     elif x == '5':
         confirmar_reajuste(ajuste_lista)
+    elif x == '6':
+        print("Programa encerrado.")
+        exit()
     else:
         print("Entrada inválida!")
         counter += 1
