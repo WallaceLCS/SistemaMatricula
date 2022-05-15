@@ -1,7 +1,7 @@
 from materias import *
 
 class Aluno:
-    def __init__(self, id: int, nome: str, fluxo: int, coeficiente: float, materias_atuais: list, materias_pagas: list, pendencias: list):
+    def __init__(self, id: int, nome: str, fluxo: int, coeficiente: float, materias_atuais: list, materias_pagas: list, pendencias: list, etapa:int):
         self.id = id
         self.nome = nome  # Geralt of Rivia, James Howlett...
         self.fluxo = fluxo  # padrão (4), calouro (3), formando (2), individual (1)
@@ -9,6 +9,7 @@ class Aluno:
         self.materias_atuais = materias_atuais  # ["COMP359","COMP360","COMP361","COMP362","COMP363"]
         self.materias_pagas = materias_pagas  # ["COMP359","COMP360","COMP361","COMP362","COMP363"]
         self.pendencias = pendencias
+        self.etapa = etapa
         
 class Pedido:
     def __init__(self, aluno:Aluno, insercao:str = None, remocao:str = None):
@@ -18,17 +19,17 @@ class Pedido:
 
 ajuste_lista = []
 matriculados = [
-    Aluno(444, 'João Pedro', 1, 8.0, ["COMP372", "CC1965", "CC1962"],["COMP359", "COMP360", "COMP361", "COMP362", "COMP363","COMP364", "COMP365", "COMP366"], ["COMP367"]),
-    Aluno(333, 'Ana Clara', 4, 6.0, ["COMP368","COMP369","COMP370","COMP371"],["COMP359", "COMP360", "COMP361", "COMP362", "COMP363","COMP364", "COMP365", "COMP366", "COMP367"], [])
+    Aluno(444, 'João Pedro', 1, 8.0, ["COMP372", "CC1965", "CC1962"],["COMP359", "COMP360", "COMP361", "COMP362", "COMP363","COMP364", "COMP365", "COMP366"], ["COMP367"],1),
+    Aluno(333, 'Ana Clara', 4, 6.0, ["COMP368","COMP369","COMP370","COMP371"],["COMP359", "COMP360", "COMP361", "COMP362", "COMP363","COMP364", "COMP365", "COMP366", "COMP367"], [],1)
 ]
 id = 0
 cadastrados = [
-    Aluno(111, 'José Henrique da Silva', 1, 6.0, [], ["COMP359","COMP365","COMP360","COMP361", "COMP362", "COMP363", "COMP365", "COMP366", "COMP367"], ["COMP364"]),
-    Aluno(222, 'Maria Carla de Andrade', 4, 7.5, [], ["COMP359", "COMP360","COMP361", "COMP362", "COMP363", "COMP365", "COMP366","COMP364", "COMP367"], []),
-    Aluno(666, 'Lucifer Morningstar', 2, 9.0, [], ["COMP359", "COMP360", "COMP361", "COMP362", "COMP363", "COMP364", "COMP365", "COMP366", "COMP367", "COMP368", "COMP369", "COMP370", "COMP371", "COMP372", "COMP373", "COMP374", "COMP376", "COMP378", "COMP379", "COMP380", "COMP381", "COMP382", "COMP386", "COMP387", "COMP389", "COMP390", "COMP391", "COMP392", "COMP393", "COMP394", "COMP395", "COMP396", "COMP397", "COMP398", "COMP399", "COMP400", "COMP401"], [])
+    Aluno(111, 'José Henrique da Silva', 1, 6.0, [], ["COMP359","COMP365","COMP360","COMP361", "COMP362", "COMP363", "COMP365", "COMP366", "COMP367"], ["COMP364"], 0),
+    Aluno(222, 'Maria Carla de Andrade', 4, 7.5, [], ["COMP359", "COMP360","COMP361", "COMP362", "COMP363", "COMP365", "COMP366","COMP364", "COMP367"], [], 0),
+    Aluno(666, 'Lucifer Morningstar', 2, 9.0, [], ["COMP359", "COMP360", "COMP361", "COMP362", "COMP363", "COMP364", "COMP365", "COMP366", "COMP367", "COMP368", "COMP369", "COMP370", "COMP371", "COMP372", "COMP373", "COMP374", "COMP376", "COMP378", "COMP379", "COMP380", "COMP381", "COMP382", "COMP386", "COMP387", "COMP389", "COMP390", "COMP391", "COMP392", "COMP393", "COMP394", "COMP395", "COMP396", "COMP397", "COMP398", "COMP399", "COMP400", "COMP401"], [], 0)
 ]
 
-def encerrar_reajuste():
+def confirmar_reajuste():
     #ordernar por coeficiente
     for i in range(0, len(ajuste_lista) - 1):  # The total number of passes,bubbles: i
         for j in range(0, len(ajuste_lista) - i - 1):  # The total number of iterations: j
@@ -49,6 +50,12 @@ def ajuste_reajuste(tipo:int):
     identificacao_ajuste = int(input("Insira seu ID: "))
     for i in matriculados:
         if i.id == identificacao_ajuste:
+            if i.etapa<2 and tipo == 1:
+                print("\nVocê ainda não pode fazer reajuste")
+                return
+            elif i.etapa==2 and tipo == 0:
+                print("\nVocê não pode mais fazer ajustes!")
+                return
             aluno=i
             check =1
             print(f"\nBem-vindo(a) {aluno.nome}.")
@@ -59,19 +66,19 @@ def ajuste_reajuste(tipo:int):
     
     while True:
         print("Qual operação vc quer realizar no ajuste?")
-        y = int(input("\n(1): Inserção de matéria."
+        y = input("\n(1): Inserção de matéria."
                       "\n(2): Remoção de matéria."
                       "\n(3): Troca de matéria.\n"
                       "(4): Voltar.\n"
-                      "Selecione uma opção: "))
-        if y == 1:
+                      "Selecione uma opção: ")
+        if y == '1':
             insercao(aluno,tipo)
-        elif y == 2:
+        elif y == '2':
             remocao(aluno,tipo)
-        elif y == 3:
+        elif y == '3':
             troca(aluno,tipo)
-        elif y  == 4:
-            aluno.ajustado='0'
+        elif y  == '4':
+            aluno.etapa+=1
             return
             #voltar para tela inicial
         else:
@@ -88,8 +95,8 @@ def insercao(aluno:Aluno,tipo:int):
     
     print("\nDisciplinas de Ciência:\n")
     for materia in grade_CC:
-        if materia in aluno.materias_atuais:
-            continue
+        if (materia in aluno.materias_pagas) or (materia in aluno.materias_atuais):
+                        continue
         print("\033[1m"+materia+"\033[0m"+":",grade_CC[materia].nome, end=" || ")
     if tipo == 1:
         print("\nDisciplinas de Engenharia da Computação e Matemática:\n")
@@ -158,11 +165,12 @@ def insercao(aluno:Aluno,tipo:int):
                 if confirm_requirement == False:
                     print(f"Você NÃO tem o pre-requesito para pagar essa matéria, você precisa pagar:")
                     print(*lista_prereq, sep=' ')
+                    continue
             if escolha in aluno.materias_pagas:
                 print("Você já pagou essa matéria!\n")
             else:
                 #Ver se tem horario
-                check =0
+                check=0
                 for mtm in aluno.materias_atuais: #pega a string materia
                     if tipo == 1:
                         if escolha in grade_externa:
@@ -171,36 +179,37 @@ def insercao(aluno:Aluno,tipo:int):
                                     if horarios_atuais_materias == horarios_materias:
                                         check=1
                                         print(f"Você não tem horário disponível para essa matéria, o horário da diciplina {grade_externa[mtm].nome} é conflitante com a que voce quer aplicar ({grade_externa[escolha].nome}).")
+                                        break
+                                if check == 1:   
                                     break
+                            if check == 1:
                                 break
-                            break
                         else:
                             for horarios_atuais_materias in grade_CC[mtm].horario: #pega essa string materia e acessa seus horarios
                                 for horarios_materias in grade_CC[escolha].horario: #loopa os horario da materia escolhida com a materia que possui
                                     if horarios_atuais_materias == horarios_materias:
                                         check=1
                                         print(f"Você não tem horário disponível para essa matéria, o horário da diciplina {grade_CC[mtm].nome} é conflitante com a que voce quer aplicar ({grade_CC[escolha].nome}).")
+                                        break
+                                if check == 1:   
                                     break
+                            if check == 1:
                                 break
-                            break
                     else:
                         for horarios_atuais_materias in grade_CC[mtm].horario: #pega essa string materia e acessa seus horarios
                             for horarios_materias in grade_CC[escolha].horario: #loopa os horario da materia escolhida com a materia que possui
                                 if horarios_atuais_materias == horarios_materias:
                                     check=1
                                     print(f"Você não tem horário disponível para essa matéria, o horário da diciplina {grade_CC[mtm].nome} é conflitante com a que voce quer aplicar ({grade_CC[escolha].nome}).")
+                                    break
+                            if check == 1:   
                                 break
-                            break
+                    if check == 1:
                         break
-                if check == 0:
-                    break
-
-    #ARMAZENAR INSERÇÃO
-    ajuste_lista.append(Pedido(aluno,escolha))
-    print("Sua inserção foi registrada.")
-    choice = input("Você quer realizar outra inserção?" "s/n: ")
-    if choice == 's':
-        insercao(aluno,tipo)
+                if check == 1:
+                    continue
+                ajuste_lista.append(Pedido(aluno,escolha))
+                print("Sua inserção foi registrada.")
 
 def remocao(aluno:Aluno,tipo:int):
     if len(aluno.materias_atuais) - 1 < 3:
@@ -226,7 +235,6 @@ def remocao(aluno:Aluno,tipo:int):
         else:
             ajuste_lista.append(Pedido(aluno,None,escolha))
             print("Sua remoção foi registrada.")
-            break
 
 
 
@@ -253,13 +261,13 @@ def troca(aluno:Aluno,tipo:int):
     
     print("\nDisciplinas de Ciência:\n")
     for materia in grade_CC:
-        if materia in aluno.materias_atuais:
+        if (materia in aluno.materias_pagas) or (materia in aluno.materias_atuais):
             continue
         print("\033[1m"+materia+"\033[0m"+":",grade_CC[materia].nome, end=" || ")
     if tipo == 1:
         print("\nDisciplinas de Engenharia da Computação e Matemática:\n")
         for materia in grade_externa:
-            if materia in aluno.materias_atuais:
+            if (materia in aluno.materias_pagas) or (materia in aluno.materias_atuais):
                 continue
             print("\033[1m"+materia+"\033[0m"+":",grade_externa[materia].nome, end=" || ")
     print("")
@@ -275,11 +283,13 @@ def troca(aluno:Aluno,tipo:int):
                 print("essa matéria não existe!")
         elif not escolha_insercao in mat_lista:
             print("essa matéria não existe!")
+            continue
         elif escolha_insercao in aluno.materias_atuais:
             if escolha_insercao in grade_externa:
                 print(f"Você já esta cadastrado em {grade_externa[escolha_insercao].nome}")
             else:
                 print(f"Você já esta cadastrado em {grade_CC[escolha_insercao].nome}")
+            continue
         else:
             #Ve se tem pré-requesito
             if tipo == 1:
@@ -324,6 +334,7 @@ def troca(aluno:Aluno,tipo:int):
                 if confirm_requirement == False:
                     print(f"Você NÃO tem o pre-requesito para pagar essa matéria, você precisa pagar:")
                     print(*lista_prereq, sep=' ')
+                    continue
             if escolha_insercao in aluno.materias_pagas:
                 print("Você já pagou essa matéria!\n")
             else:
@@ -337,17 +348,21 @@ def troca(aluno:Aluno,tipo:int):
                                     if horarios_atuais_materias == horarios_materias:
                                         check=1
                                         print(f"Você não tem horário disponível para essa matéria, o horário da diciplina {grade_externa[mtm].nome} é conflitante com a que voce quer aplicar ({grade_externa[escolha_insercao].nome}).")
+                                        break
+                                if check == 1:
                                     break
+                            if check == 1:
                                 break
-                            break
                         else:
                             for horarios_atuais_materias in grade_CC[mtm].horario: #pega essa string materia e acessa seus horarios
                                 for horarios_materias in grade_CC[escolha_insercao].horario: #loopa os horario da materia escolhida com a materia que possui
                                     if horarios_atuais_materias == horarios_materias:
                                         check=1
                                         print(f"Você não tem horário disponível para essa matéria, o horário da diciplina {grade_CC[mtm].nome} é conflitante com a que voce quer aplicar ({grade_CC[escolha_insercao].nome}).")
+                                        break
+                                if check == 1:
                                     break
-                                break
+                        if check == 1:
                             break
                     else:
                         for horarios_atuais_materias in grade_CC[mtm].horario: #pega essa string materia e acessa seus horarios
@@ -355,59 +370,109 @@ def troca(aluno:Aluno,tipo:int):
                                 if horarios_atuais_materias == horarios_materias:
                                     check=1
                                     print(f"Você não tem horário disponível para essa matéria, o horário da diciplina {grade_CC[mtm].nome} é conflitante com a que voce quer aplicar ({grade_CC[escolha_insercao].nome}).")
+                                    break
+                            if check == 1:
                                 break
-                            break
+                    if check == 1:
                         break
-                if check == 0:
-                    break
-    ajuste_lista.append(Pedido(aluno,escolha_insercao,escolha_remover))
-    print("troca registrada")
+                if check == 1:
+                    continue
+            ajuste_lista.append(Pedido(aluno,escolha_insercao,escolha_remover))
+            print("troca registrada")
+            break
 
 def confirmar_ajustes(ajuste_lista):
     if ajuste_lista == []:
         print("não há ajustes para realizar!")
         return
     else:
+        #for de ordenação
+        for pedido in ajuste_lista:
+            #trocas insert
+            if pedido == '*':
+                continue
+            elif pedido.insercao != None and pedido.remocao != None:
+                if grade_CC[pedido.insercao].ocupado == grade_CC[pedido.insercao].limite:
+                    print("matéria cheia! não vai ser possivel fazer a troca!")
+                    continue
+                for j in range(len(ajuste_lista)):
+                    if pedido == ajuste_lista[j] or ajuste_lista[j] =='*':
+                        continue
+                    elif (ajuste_lista[j].insercao == pedido.remocao) and ajuste_lista[j].remocao==None:
+                        print("ajustando a troca: ", pedido.aluno.nome," que atende inserção ",ajuste_lista[j].aluno.nome,end="")
+                        grade_CC[pedido.remocao].ocupado-=1
+                        pedido.aluno.materias_atuais.remove(pedido.remocao)
+                        grade_CC[pedido.insercao].ocupado+=1
+                        pedido.aluno.materias_atuais.append(pedido.insercao)
+                        print("\najuste efetuado!")
+                        ajuste_lista = ['*' if item == pedido else item for item in ajuste_lista]
+            else:
+                continue
+        for pedido in ajuste_lista:
+            #trocas remove
+            if pedido == '*':
+                continue
+            elif pedido.insercao != None and pedido.remocao != None:
+                if grade_CC[pedido.insercao].ocupado == grade_CC[pedido.insercao].limite:
+                    print("matéria cheia! não vai ser possivel fazer a troca!")
+                    continue
+                for j in range(len(ajuste_lista)):
+                    if pedido == ajuste_lista[j] or ajuste_lista[j] =='*':
+                        continue
+                    elif (ajuste_lista[j].remocao == pedido.insercao) and ajuste_lista[j].insercao==None:
+                        print("ajustando a troca: ", pedido.aluno.nome," que atende remoção ",ajuste_lista[j].aluno.nome,end="")
+                        grade_CC[pedido.remocao].ocupado-=1
+                        pedido.aluno.materias_atuais.remove(pedido.remocao)
+                        grade_CC[pedido.insercao].ocupado+=1
+                        pedido.aluno.materias_atuais.append(pedido.insercao)
+                        print("\najuste efetuado!")
+                        ajuste_lista = ['*' if item == pedido else item for item in ajuste_lista]
+            else:
+                continue
         for pedido in ajuste_lista:
             #trocas
-            if pedido.insercao != None and pedido.remocao != None:
+            if pedido == '*':
+                continue
+            elif pedido.insercao != None and pedido.remocao != None:
                 if grade_CC[pedido.insercao].ocupado == grade_CC[pedido.insercao].limite:
                     print("matéria cheia! não vai ser possivel fazer a troca!")
                     continue
                 else:
-                    print("ajustando a troca: %s" %pedido.aluno.nome, end=",")
-                for j in range(len(ajuste_lista)):
-                    if pedido == ajuste_lista[j]:
-                        continue
-                    elif (ajuste_lista[j].insercao == pedido.remocao) and ajuste_lista[j].remocao==None:
-                        print("que atende inserção")
-                    elif (ajuste_lista[j].remocao == pedido.insercao) and ajuste_lista[j].insercao==None:
-                        print("que atende remoção")
-                grade_CC[pedido.remocao].ocupado-=1
-                pedido.aluno.materias_atuais.remove(pedido.remocao)
-                grade_CC[pedido.insercao].ocupado+=1
-                pedido.aluno.materias_atuais.append(pedido.insercao)
-                print("ajuste efetuado!")
+                    print("ajustando a troca:", pedido.aluno.nome,end="")
+                    grade_CC[pedido.remocao].ocupado-=1
+                    pedido.aluno.materias_atuais.remove(pedido.remocao)
+                    grade_CC[pedido.insercao].ocupado+=1
+                    pedido.aluno.materias_atuais.append(pedido.insercao)
+                    print("\najuste efetuado!")
+                    ajuste_lista = ['*' if item == pedido else item for item in ajuste_lista]
+            else:
+                continue
+        for pedido in ajuste_lista:
             #remoções
-            elif pedido.insercao == None and pedido.remocao != None:
+            if pedido == '*':
+                continue
+            if pedido.insercao == None and pedido.remocao != None:
                 if not pedido.remocao in pedido.aluno.materias_atuais:
                     print("você não está nessa matéria!!")
                     continue
                 grade_CC[pedido.remocao].ocupado-=1
                 pedido.aluno.materias_atuais.remove(pedido.remocao)
                 print("ajustando remoção %s" %pedido.aluno.nome)
-                print("removendo: %s", grade_CC[pedido.remocao].nome)
-            #inserções
-            else:
-                if grade_CC[pedido.insercao].ocupado == grade_CC[pedido.insercao].limite:
-                    print("matéria cheia! não vai ser possivel fazer a inserção!")
-                    continue
-                else:
-                    grade_CC[pedido.insercao].ocupado+=1
-                    pedido.aluno.materias_atuais.append(pedido.insercao)
-                print("ajustando inserção %s" %pedido.aluno.nome)
+                print("removendo:", grade_CC[pedido.remocao].nome)
+                ajuste_lista = ['*' if item == pedido else item for item in ajuste_lista]
+        for pedido in ajuste_lista:
+            if pedido == '*':
+                continue
+            if grade_CC[pedido.insercao].ocupado == grade_CC[pedido.insercao].limite:
+                print("matéria cheia! não vai ser possivel fazer a inserção!")
+                continue
+            elif pedido.insercao != None and pedido.remocao == None:
+                grade_CC[pedido.insercao].ocupado+=1
+                pedido.aluno.materias_atuais.append(pedido.insercao)
+            print("ajustando inserção %s" %pedido.aluno.nome)
             ajuste_lista = ['*' if item == pedido else item for item in ajuste_lista]
-        ajuste_lista.remove('*')
+        ajuste_lista = filter(lambda val: val !=  '*', ajuste_lista) 
+        print(ajuste_lista)
         print("ajustes efetuados!!")
         return
 
@@ -428,7 +493,7 @@ def matricula():
             else:
                 global id
                 id += 1
-                calouro = Aluno(id, nome, 3, 10.0, ["COMP359", "COMP360", "COMP361", "COMP362", "COMP363"], [[]], [])
+                calouro = Aluno(id, nome, 3, 10.0, ["COMP359", "COMP360", "COMP361", "COMP362", "COMP363"], [], [], 0)
 
                 for i in range(len(calouro.materias_atuais)):
                     if calouro.materias_atuais[i] in grade_CC:
@@ -488,6 +553,7 @@ def matricula():
                     if x == 4 or y == 4: print(
                         "Limite de entradas inválidas atingido. Processo de matrícula encerrado."); break
                     if len(aluno.materias_atuais) == 10:
+                        aluno.etapa+=1
                         matriculados.append(aluno)
                         cadastrados.remove(aluno)
                         print("Limite de materias atingido.")
@@ -501,6 +567,7 @@ def matricula():
                             sel = input(
                                 "Selecione uma matéria para se matrícular (para encerrar, insira 'e'): ").upper()
                             if sel == 'E':
+                                aluno.etapa+=1
                                 matriculados.append(aluno)
                                 cadastrados.remove(aluno)
                                 print("Matrícula efetuada.")
@@ -515,12 +582,20 @@ def matricula():
                         if sel in aluno.materias_pagas:  # Checa se o aluno já pagou a matéria.
                             print("Você já pagou essa matéria.")
                         elif sel in grade_CC:
+                            conflito=0
                             for i in range(len(aluno.materias_atuais)):
                                 for j in range(len(grade_CC[aluno.materias_atuais[i]].horario)):
                                     for k in range(len(grade_CC[sel].horario)):
                                         if grade_CC[aluno.materias_atuais[i]].horario[j] == grade_CC[sel].horario[k]:
+                                            conflito=1
                                             print("Horários conflitantes.")
-                                            return
+                                            break
+                                    if conflito == 1:
+                                        break
+                                if conflito == 1:
+                                    break
+                            if conflito == 1:
+                                continue
                             print(grade_CC[sel].nome)
                             if grade_CC[sel].ocupado == grade_CC[sel].limite:
                                 print("Matéria cheia.")
@@ -557,7 +632,7 @@ while True:
         print("Limite de entradas inválidas atingido. Programa encerrado.")
         exit()
     x = input(
-        "\nBem-vindo ao sistema de matrícula, ajuste e reajuste.\n(1) - Matrícula;\n(2) - Ajuste;\n(3) - Encerrar período de ajustes;\n(4) - Reajuste;\n(5) - Confirmar reajuste;\n(6) - Encerrar programa.\nSelecione uma opção: ")
+        "\nBem-vindo ao sistema de matrícula, ajuste e reajuste.\n(1) - Matrícula;\n(2) - Ajuste;\n(3) - Efetiver Ajustes;\n(4) - Reajuste;\n(5) - Efetivar reajustes;\n(6) - Encerrar programa.\nSelecione uma opção: ")
     if x == '1':
         matricula()
         for i in range(len(matriculados)):
@@ -565,21 +640,17 @@ while True:
                 matriculados[i].materias_atuais) + ' coef:' + str(
                 matriculados[i].coeficiente) + ' fluxo:' + str(matriculados[i].fluxo) + ' m_pagas' + str(
                 matriculados[i].materias_pagas) + ' pendencias' + str(matriculados[i].pendencias))
-    elif x == '5':
+    elif x == '6':
         print("Programa encerrado.")
         exit()
     elif x == '2':
         ajuste_reajuste(0)
     elif x == '3':
         confirmar_ajustes(ajuste_lista)
-        encerrado=1
     elif x == '4':
-        if encerrado == 1:
-            ajuste_reajuste(1)
-        else:
-            print ("")
+        ajuste_reajuste(1)
     elif x == '5':
-        encerrar_reajuste()
+        confirmar_reajuste(ajuste_lista)
     else:
         print("Entrada inválida!")
         counter += 1

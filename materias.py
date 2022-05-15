@@ -99,10 +99,6 @@ grade_CC = {
     "CC1967": Disciplina("Tópicos em Sistemas Inteligentes", [], [], 1),
     "CC1968": Disciplina("Tópicos em Software Básico ", [], [], 1),
     
-    #TCC
-    "TCC1": Disciplina("TCC", [], [], 5),
-    "TCC2": Disciplina("TCC", [], [], 5),
-    "TCC3": Disciplina("TCC", [], [], 5),
 }
 
 grade_externa = {

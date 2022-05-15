@@ -1,1 +1,0 @@
- materia in aluno.materias_atuais
