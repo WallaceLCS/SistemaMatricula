@@ -202,9 +202,9 @@ def confirmar_Reajustes(ajuste_lista):
     #printar lista
     for pedido in ajuste_lista:
         #Trocas
-        if ajuste_lista[i].insercao != None and ajuste_lista[i].remocao != None:
+        if pedido.insercao != None and pedido.remocao != None:
             print("Reajustando troca")
-            if (ajuste_lista[i].remocao in grade_externa):
+            if (pedido.remocao in grade_externa):
                 grade_externa[pedido.remocao].ocupado-=1
             else:
                 grade_CC[pedido.remocao].ocupado-=1
@@ -212,7 +212,7 @@ def confirmar_Reajustes(ajuste_lista):
                 pedido.aluno.fluxo = 1
             pedido.aluno.materias_atuais.remove(pedido.remocao)
             
-            if (ajuste_lista[i].insercao in grade_externa):
+            if (pedido.insercao in grade_externa):
                 if grade_externa[pedido.insercao].ocupado == grade_externa[pedido.insercao].limite:
                     print("matéria cheia! não vai ser possivel fazer a troca!")
                     print("Lamentamos muito parceiro :/ : ",pedido.aluno.nome)
@@ -226,9 +226,9 @@ def confirmar_Reajustes(ajuste_lista):
                 grade_CC[pedido.insercao].ocupado+=1
             pedido.aluno.materias_atuais.append(pedido.insercao)
         #Remoções
-        elif ajuste_lista[i].insercao == None and ajuste_lista[i].remocao != None:
+        elif pedido.insercao == None and pedido.remocao != None:
             print("Reajustando Remoção")
-            if (ajuste_lista[i].remocao in grade_externa):
+            if (pedido.remocao in grade_externa):
                 grade_externa[pedido.remocao].ocupado-=1
             else:
                 grade_CC[pedido.remocao].ocupado-=1
@@ -239,7 +239,7 @@ def confirmar_Reajustes(ajuste_lista):
         #Inserções
         else:
             print("Reajustando Inserção")
-            if (ajuste_lista[i].insercao in grade_externa):
+            if (pedido.insercao in grade_externa):
                 if grade_externa[pedido.insercao].ocupado == grade_externa[pedido.insercao].limite:
                     print("matéria cheia! não vai ser possivel fazer a troca!")
                     print("Lamentamos muito parceiro :/ : ",pedido.aluno.nome)
@@ -252,8 +252,8 @@ def confirmar_Reajustes(ajuste_lista):
                     continue
                 grade_CC[pedido.insercao].ocupado+=1
             pedido.aluno.materias_atuais.append(pedido.insercao)
-        print(f"{ajuste_lista[i].aluno.nome}: {ajuste_lista[i].aluno.coeficiente}")
-        ajuste_lista[i]='*'
+        print(f"{pedido.aluno.nome}: {pedido.aluno.coeficiente}")
+        pedido='*'
         print("Reajustado!")
     result = filter(lambda val: val !=  '*', ajuste_lista)
     print("Reajustes efetivados!!")
